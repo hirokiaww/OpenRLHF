@@ -6,25 +6,25 @@ openrlhf.cli.train_kto \
    --save_steps -1 \
    --logging_steps 1 \
    --eval_steps -1 \
-   --train_batch_size 64 \
+   --train_batch_size 2 \
    --micro_train_batch_size 1 \
-   --pretrain OpenRLHF/Llama-3-8b-sft-mixture \
+   --pretrain google/gemma-2-2b-jpn-it \
    --bf16 \
    --max_epochs 1 \
    --max_len 8192 \
    --zero_stage 3 \
    --learning_rate 5e-7 \
-   --dataset Dylan2048/ultrafeedback-unpaired-preferences \
-   --input_key instruction \
-   --output_key response \
-   --label_key score \
-   --flash_attn \
+   --dataset  data/dataset/dialogue/output.json\
+   --input_key interviewer \
+   --output_key imma \
+   --label_key label \
+
    --beta 0.1 \
    --max_samples 1024 \
-   --gradient_checkpointing
+   --gradient_checkpointing\
+   --use_wandb c9bfebc2655cdc940e99595484b75be4382469b0
 EOF
-    # --use_wandb [WANDB_TOKENS] or True (use wandb login command)
-
+#    --flash_attn \
 
 if [[ ${1} != "slurm" ]]; then
     deepspeed --module $training_commands

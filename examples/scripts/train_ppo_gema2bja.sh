@@ -2,9 +2,9 @@ set -x
 
 read -r -d '' training_commands <<EOF
 openrlhf.cli.train_ppo \
-   --pretrain OpenRLHF/Llama-3-8b-sft-mixture \
+   --pretrain google/gemma-2-2b-jpn-it \
    --reward_pretrain OpenRLHF/Llama-3-8b-rm-mixture \
-   --save_path ./checkpoint/llama-3-8b-rlhf \
+   --save_path ./checkpoint/gemma-2-2b-jpn-it \
    --save_steps -1 \
    --logging_steps 1 \
    --eval_steps -1 \
@@ -26,10 +26,12 @@ openrlhf.cli.train_ppo \
    --max_samples 100000 \
    --normalize_reward \
    --adam_offload \
-   --flash_attn \
    --load_checkpoint \
    --gradient_checkpointing
+   --use_wandb c9bfebc2655cdc940e99595484b75be4382469b0
+
 EOF
+#    --flash_attn \
 
     # --packing_samples
     # --use_wandb [WANDB_TOKENS] or True (use wandb login command)
